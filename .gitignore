@@ -1,0 +1,10 @@
+.vscode
+
+.env
+venv/
+
+*.mp3
+*.wav
+*.json
+
+__pycache__/

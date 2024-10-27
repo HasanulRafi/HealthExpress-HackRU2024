@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Express - Your Digital Health Partner</title>
+    <link rel="stylesheet" href="../static/index.css">
+</head>
+<body>
+    <div class="waves"></div>
+    <div class="container">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='images/health-express-logo.png') }}" alt="Health Express Logo" class="logo">
+            <h1 class="brand-name">Health Express</h1>
+            <p class="subtitle">Your Digital Health Partner</p>
+        </div>
+
+        <form id="languageForm" action="{{ url_for('set_language') }}" method="post">
+            <input type="hidden" name="language" id="selectedLanguage">
+            <div class="language-grid">
+                <button type="button" class="lang-btn" data-lang="en" aria-label="Select English">
+                    <span class="lang-icon">🇺🇸</span>
+                    <span class="lang-name">English</span>
+                    <span class="native-name">English</span>
+                </button>
+                <button type="button" class="lang-btn" data-lang="es" aria-label="Select Spanish">
+                    <span class="lang-icon">🇪🇸</span>
+                    <span class="lang-name">Spanish</span>
+                    <span class="native-name">Español</span>
+                </button>
+                <button type="button" class="lang-btn" data-lang="fr" aria-label="Select French">
+                    <span class="lang-icon">🇫🇷</span>
+                    <span class="lang-name">French</span>
+                    <span class="native-name">Français</span>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="accessibility-controls">
+        <button class="accessibility-btn" aria-label="Increase font size">A+</button>
+        <button class="accessibility-btn" aria-label="Decrease font size">A-</button>
+        <button class="accessibility-btn" aria-label="Toggle high contrast">◐</button>
+    </div>
+
+    <script>
+        document.querySelectorAll('.lang-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                document.getElementById('selectedLanguage').value = this.dataset.lang;
+                document.getElementById('languageForm').submit();
+            });
+        });
+
+        // Accessibility controls
+        let fontSize = 16;
+        const root = document.documentElement;
+
+        document.querySelectorAll('.accessibility-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (this.getAttribute('aria-label').includes('Increase')) {
+                    fontSize = Math.min(fontSize + 2, 24);
+                    root.style.fontSize = fontSize + 'px';
+                } else if (this.getAttribute('aria-label').includes('Decrease')) {
+                    fontSize = Math.max(fontSize - 2, 12);
+                    root.style.fontSize = fontSize + 'px';
+                } else {
+                    document.body.classList.toggle('high-contrast');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
